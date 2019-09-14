@@ -1,0 +1,111 @@
+body, footer, form, input, textarea, select {
+		font-family: 'Source Sans Pro';
+		font-weight: 300;
+		color: #777;
+		line-height: 1.65em;
+		font-size: 15pt;
+	}
+
+form label {
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #888;
+  display: block;
+  margin: 0 0 1em 0;
+}
+
+form input,
+form textarea {
+  display: block;
+  border: 0;
+  margin-bottom:3%;
+  background: #e8e8e8;
+  width: 100%;
+  box-shadow: inset 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  line-height: 1.25em;
+  padding: 0.75em 1em 0.75em 1em;
+}
+
+ button,
+ .button {
+		position: relative;
+		display: inline-block;
+		background: rgb(237, 120, 106);
+		color: white;
+		text-transform: uppercase;
+		border-radius: 4px;
+		border: 0;
+		outline: 0;
+		font-size: 1em;
+		box-shadow: 0.125em 0.175em 0 0 rgba(0, 0, 0, 0.125);
+		font-weight: 600;
+		text-align: center;
+		font-size: 0.85em;
+		letter-spacing: 2px;
+		padding: 0.85em 2.75em 0.85em 2.75em;
+	}
+
+  form input[type="text"]:focus,
+  form input[type="email"]:focus,
+  form input[type="password"]:focus,
+  form select:focus,
+  form textarea:focus {
+    background: rgb(240, 240, 240);
+    font-family: 'Source Code Pro', monospace;
+  }
+
+form textarea {
+  min-height: 11em;
+}
+
+#header{
+  position: relative;
+  overflow: hidden;
+  border-bottom: solid 2px rgb(229, 229, 229);
+  background: rgb(240, 240, 240);
+}
+
+#header h2{
+  color: rgb(52, 58, 64);
+  font-family: 'Source Sans Pro'
+}
+
+#footer {
+  position: relative;
+  overflow: hidden;
+  border-top: solid 2px rgb(229, 229, 229);
+  background: rgb(240, 240, 240);
+  padding: 6em 0 8em 0;
+}
+
+  #footer form input[type="text"],
+  #footer form input[type="email"],
+  #footer form input[type="password"],
+  #footer form select,
+  #footer form textarea {
+    background: rgb(247, 247, 247);
+  }
+
+  #footer ul li{
+    list-style: none;
+    font-family: 'Source Sans Pro'
+  }
+
+    #footer form input[type="text"]:focus,
+    #footer form input[type="email"]:focus,
+    #footer form input[type="password"]:focus,
+    #footer form select:focus,
+    #footer form textarea:focus {
+      background: #fff;
+      box-shadow: inset 2px 2px 0px 0px rgba(0, 0, 0, 0.1);
+    }
+
+  #footer h2 {
+    text-align: center;
+  }
+
+  #footer li a{
+    text-decoration: none;
+    color: #777;
+  }
