@@ -113,3 +113,7 @@ form textarea {
     text-decoration: none;
     color: #777;
   }
+
+	.carousel-caption{
+		background-color: rgba(0, 0, 0, 0.5);
+	}
