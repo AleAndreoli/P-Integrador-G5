@@ -70,6 +70,10 @@ form textarea {
   background: rgb(240, 240, 240);
 }
 
+.typo-carousel{
+	color: white;
+}
+
 #header h2{
   color: white;
   font-family: 'Source Sans Pro'

@@ -5,3 +5,8 @@ body .top-color {
 form {
   background-color: #1dc255;
 }
+
+body .link-home {
+  color: white;
+  text-decoration: none;
+}
