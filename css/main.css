@@ -6,6 +6,10 @@ body, footer, form, input, textarea, select {
 		font-size: 15pt;
 	}
 
+.top-color {
+	  background-color: #1e7acf;
+	}
+
 form label {
   font-weight: 600;
   text-transform: uppercase;
