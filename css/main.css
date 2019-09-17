@@ -6,9 +6,15 @@ body, footer, form, input, textarea, select {
 		font-size: 15pt;
 	}
 
-.top-color {
-	  background-color: #1e7acf;
-	}
+a.nav-link:hover{
+	color:#fff;
+	text-decoration: underline;
+	font-weight: bold;
+	font-size: 20px;
+	padding: 0;
+	margin:0;
+}
+
 
 form label {
   font-weight: 600;
@@ -63,17 +69,6 @@ form textarea {
   min-height: 11em;
 }
 
-#header{
-  position: relative;
-  overflow: hidden;
-  border-bottom: solid 2px rgb(229, 229, 229);
-  background: rgb(240, 240, 240);
-}
-
-#header h2{
-  color: white;
-  font-family: 'Source Sans Pro'
-}
 
 #carousel .carousel-item{
 	width:100%;
