@@ -31,8 +31,7 @@ form textarea {
   padding: 0.75em 1em 0.75em 1em;
 }
 
- button,
- .button {
+ .button-home {
 		position: relative;
 		display: inline-block;
 		background: rgb(237, 120, 106);
