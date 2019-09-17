@@ -12,31 +12,47 @@
 </head>
 
 <body>
-  <div class="container-fluid top-color">
-    <div class="h2 p-2">
-      <a class="link-home" href="Index.html">
-        Green Valley
-      </a>
-    </div>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-top">
+      <div class="container-fluid">
+          <a class="navbar-brand" href="index.html">
+           <img src="https://www.plantadeldinero.com/wp-content/uploads/2018/11/6.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+           Green Valley
+             </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="user-account.html">Cuenta <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="login.html">Iniciar Sesion</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="registro.html">Registrarse</a>
+                </li>
+                </ul>
+            </div>
+      </div>
+  </nav>
+
+
+  <div class="container">
+        <div class="row">
+            <form class="container rounded col-10 col-md-6 mt-5">
+                <div class="h4 p-2">Recupera tu contraseña.</div>
+                <div class="5"> Vas a estar recibiendo un mail para genera una nueva contraseña.</div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1 h6">Ingresa tu e-mail:</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block mt-3">Enviar</button>
+                <a type="" class="nav-link btn-link strong" href="login.html" name="button">Ya tengo cuenta</a>
+            </form>
+        </div>
   </div>
-  <form>
-    <div class="container col-12 col-md-6 form-color rounded justify-content-center mt-5">
-      <div class="p-2">
-        <div class="h4">
-          Recupera tu contraseña.
-        </div>
-        <div class="5">
-          Vas a estar recibiendo un mail para genera una nueva contraseña.
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1 h6">Ingresa tu e-mail:</label>
-        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="">
-      </div>
-      <button type="submit" class="btn btn-primary btn-block mt-3">Enviar</button>
-      <a type="" class="nav-link btn-link strong" href="login.html" name="button">Ya tengo cuenta.</a>
-    </div>
-  </form>
+
 
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

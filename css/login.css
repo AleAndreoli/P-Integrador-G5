@@ -1,12 +1,12 @@
-body .top-color {
-  background-color: #1e7acf;
+a.nav-link{
+	color:#fff;
+}
+
+a.nav-link:hover{
+  	color:#fff;
+  	text-decoration: underline;
 }
 
 form {
   background-color: #1dc255;
-}
-
-body .link-home {
-  color: white;
-  text-decoration: none;
 }
