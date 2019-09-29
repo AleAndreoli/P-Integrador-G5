@@ -22,7 +22,14 @@ function loginCall()
             if ($correoElectronico == $usuario['email']) {
                 $password= $usuario['password'];
                 if (password_verify($contrasenia, $password)) {
-                    header('location: Index.html'); // Redirecciona al INDEX, aquí debería iniciar sesion "session_start()"
+                    session_start();
+                    $_SESSION['idUsuario'] = $usuario['idUsuario'];
+                    $_SESSION['nombre'] = $usuario['nombre'];
+                    $_SESSION['apellido'] = $usuario['apellido'];
+                    $_SESSION['telefono-f'] = $usuario['telefono-f'];
+                    $_SESSION['celular'] = $usuario['celular'];
+                    $_SESSION['direcciones'] = $usuario['direcciones'];
+                    header('location: Index.html');
                     exit;
                 } else {
                     $errores['errorCorreoElectronico'] = 'Usuario y Contraseña ingresados no coinciden';
