@@ -20,9 +20,9 @@ if (count($_POST)) {
     if (!count($erroresEnRegistro)) {
         $usuario=[
         'idUsuario'=> ($listaUsuarios == null) ? 1 : count($listaUsuarios) + 1,
-        'nombre'=>"",
+        'nombre'=> $_POST["name"],
         'email'=> $_POST["email"],
-        'user'=> "",
+        'user'=> $_POST["username"],
         'password'=> password_hash($_POST["password1"], PASSWORD_DEFAULT),
         'direcciones' => [],
         'tyc-accepted'=> date("Y-m-d H:i:s"),
@@ -42,7 +42,19 @@ if (count($_POST)) {
         exit;
     }
 }
-
+if ($_FILES) {
+  if ($_FILES["fotoperfil"]["error"] != 0) {
+    return "Hubo un error en la carga de la foto. <br>";
+  } else {
+    $ext = pathinfo($_FILES["fotoperfil"]["name"], PATHINFO_EXTENSION);
+    if ($ext != "jpg" && $ext != "jpeg" && $ext != "png") {
+      return "La imagen tiene que ser jpg, jpeg o png. <br>";
+    } else {
+      move_uploaded_file($_FILES["fotoperfil"]["tmp_name"], "archivos/fotoperfil.".$ext);
+      return "Se cargo correctamente tu imagen";
+    }
+  }
+}
 ?>
 <!doctype html>
 <html lang="es" dir="ltr">
@@ -86,9 +98,21 @@ if (count($_POST)) {
 
   <div class="container">
         <div class="row">
-            <form class="container rounded col-10 col-md-6 mt-5" method='post'>
+            <form class="container rounded col-10 col-md-6 mt-5" method='post' enctype="multipart/form-data">
                 <div class="h4 p-2">¡Registrate para comprar tus productos!</div>
-                <div class="5">En solo 4 pasos ya estarás adentro de tu cuenta.</div>
+                <div class="5">En solo 7 pasos ya estarás adentro de tu cuenta.</div>
+                <div class="form-control">
+                  <label for="InputFile h6">Carga tu foto de perfil</label>
+                  <input type="file" name="fotoperfil" value="">
+                </div>
+                <div class="form-control">
+                  <label for="InputName h6">Escribí tu nombre completo:</label>
+                  <input type="text" class="form-control" name="name" value="">
+                </div>
+                <div class="form-control">
+                  <label for="InputName h6">Elegí tu nombre de usuario:</label>
+                  <input type="text" class="form-control" name="username" value="">
+                </div>
                 <div class="form-group">
                     <label for="InputEmail h6">Ingresa tu e-mail:</label>
                     <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="email@dominio.com" name= "email" value='<?php if (count($_POST)):?><?=$correoElectronico?><?php endif?>'>
@@ -111,6 +135,12 @@ if (count($_POST)) {
             </form>
         </div>
   </div>
+
+  <?php if (isset($_FILES)) : ?>
+    <ul>
+      <li><?=$imagen?></li>
+    </ul>
+  <?php endif; ?>
 
   <?php if (isset($erroresEnRegistro) && count($erroresEnRegistro) > 0) : ?>
     <ul>
