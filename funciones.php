@@ -60,8 +60,12 @@ function actualizarPerfil($idUsuario)
     'password'=> (!empty($_POST['password1'])) ? password_hash($_POST["password1"], PASSWORD_DEFAULT) : $usuarios[getUsuarioLogueado($idUsuario)]['password'],
     'direcciones' => $usuarios[getUsuarioLogueado($idUsuario)]['direcciones'],
     'tyc-accepted'=>  $usuarios[getUsuarioLogueado($idUsuario)]['tyc-accepted'],
-    'avatar'=> ""
+    'avatar'=> $usuarios[getUsuarioLogueado($idUsuario)]['avatar']
     ];
+        $nombre = trim($_POST['nombre']);
+        $apellido = trim($_POST['apellido']);
+        $telefono = trim($_POST['telefono-f']);
+        $celular = trim($_POST['celular']);
         $indice = getUsuarioLogueado($idUsuario);
         $usuarios[$indice]=$usuario;
 
