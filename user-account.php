@@ -1,5 +1,25 @@
+<?php
+require_once 'funciones.php';
+session_start();
+
+if (count($_POST)) {
+
+    // Variable para persistir la información del usuario
+    $nombre = trim($_POST['nombre']);
+    $apellido = trim($_POST['apellido']);
+    $telefono = trim($_POST['telefono-f']);
+    $celular = trim($_POST['celular']);
+    $contrasenia1 = trim($_POST['password1']);
+    $contrasenia2 = trim($_POST['password2']);
+
+    // Esta función se dispara sólo si hay $_POST
+    actualizarPerfil($_SESSION['idUsuario']);
+}
+
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 
   <title>TiendaIntegrador - Mi cuenta</title>
@@ -13,7 +33,12 @@
   <hr>
   <div class="container-fluid">
     <div class="row">
-  		<div class="col-md-12 my-5 bg-secondary text-white py-3"><h1>Fulano De Tal</h1></div> <!--Obtener el nombre de $_SESSION-->
+  		<div class="col-md-12 my-5 bg-secondary text-white py-3">
+        <h1>
+          <?php if ($_SESSION['nombre']):?><?=$_SESSION['nombre'] ?> <?php else:?> Cosme <?php endif?>
+          <?php if ($_SESSION['apellido']):?><?=$_SESSION['apellido'] ?> <?php else:?>Fulanito <?php endif?>
+        </h1>
+      </div>
     </div>
     <div class="row">
   		<div class="col-sm-3"><!--Barra lateral-->
@@ -22,7 +47,10 @@
       <div class="text-center mt-2">
         <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
         <h6>Modificar Mi Imagen De Perfil</h6>
-        <input type="file" class="text-center center-block file-upload">
+        <div class="custom-file">
+          <label class="custom-file-label" for="carga-img">Seleccione Archivo</label>
+          <input type="file" class="custom-file-input" id="carga-img">
+        </div>
       </div>
     </hr> <br>
 
@@ -47,55 +75,71 @@
           <div class="tab-content">
             <div class="tab-pane active" id="home">
                 <hr>
-                  <form class="form" action="##" method="post" id="registrationForm">
+                  <form class="form" method="post" id="registrationForm">
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="first_name"><h4>Nombre/s</h4></label>
-                              <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre/s">
+                              <label for="nombre">
+                                <h4>
+                                  <?php if ($_SESSION['nombre']):?><?=$_SESSION['nombre']?> <?php else:?>Por favor, díganos su nombre <?php endif?>
+                                </h4>
+                              </label>
+                              <input type="text" class="form-control" name="nombre" id="nombre" value='<?php if (count($_POST)):?><?=$nombre?><?php endif?>'placeholder="Nombre/s">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                            <label for="last_name"><h4>Apellido</h4></label>
-                              <input type="text" class="form-control" name="apellido" id="apellido" placeholder="Apellido">
+                            <label for="apellido">
+                              <h4>
+                              <?php if ($_SESSION['apellido']):?><?=$_SESSION['apellido']?> <?php else:?>Por favor, díganos su apellido <?php endif?>
+                              </h4>
+                            </label>
+                              <input type="text" class="form-control" name="apellido" id="apellido" value='<?php if (count($_POST)):?><?=$apellido?><?php endif?>' placeholder="Apellido">
                           </div>
                       </div>
 
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="phone"><h4>Telefono Fijo</h4></label>
-                              <input type="text" class="form-control" name="telefono-f" id="telefonof" placeholder="Ej: (351)-4614628">
+                              <label for="telefono-f">
+                                <h4>
+                                <?php if ($_SESSION['telefono-f']):?>Teléfono Fijo: <?=$_SESSION['telefono-f']?> <?php else:?>Por favor, díganos su teléfono fijo <?php endif?>
+                                </h4>
+                              </label>
+                              <input type="text" class="form-control" name="telefono-f" id="telefono-f" value='<?php if (count($_POST)):?><?=$telefono?><?php endif?>' placeholder="Ej: (351)-4614628">
                           </div>
                       </div>
 
                       <div class="form-group">
                           <div class="col-xs-6">
-                             <label for="mobile"><h4>Mobile</h4></label>
-                              <input type="text" class="form-control" name="celular" id="celular" placeholder="Ej: (351)-3370944">
+                             <label for="celular">
+                               <h4>
+                               <?php if ($_SESSION['celular']):?>Teléfono Celular: <?=$_SESSION['celular']?> <?php else:?>Por favor, díganos su teléfono celular <?php endif?>
+                               </h4>
+                             </label>
+                              <input type="text" class="form-control" name="celular" id="celular" value='<?php if (count($_POST)):?><?=$celular?><?php endif?>' placeholder="Ej: (351)-3370944">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                              <label for="password"><h4>Contraseña</h4></label>
-                              <input type="password" class="form-control" name="password" id="password" placeholder="Modificar Contraseña">
+                              <label for="password1"><h4>Contraseña</h4></label>
+                              <input type="password" class="form-control" name="password1" id="password1" placeholder="Modificar Contraseña">
                           </div>
                       </div>
                       <div class="form-group">
 
                           <div class="col-xs-6">
-                            <label for="password2"><h4>Verify</h4></label>
+                            <label for="password2"><h4>Verificar Contraseña</h4></label>
                               <input type="password" class="form-control" name="password2" id="password2" placeholder="Verifique su contraseña">
                           </div>
                       </div>
                       <div class="form-group">
                            <div class="col-xs-12">
                                 <br>
-                              	<button class="btn btn-lg btn-success" type="submit">Guardar Cambios</button>
-                               	<button class="btn btn-lg" type="reset">Reiniciar</button>
+                              	<button class="btn btn-lg btn-success" type="submit"><ion-icon name="checkmark-circle-outline"></ion-icon> Guardar Cambios</button>
+                               	<button class="btn btn-lg btn-light" type="reset"><ion-icon name="refresh"></ion-icon> Reiniciar</button>
                             </div>
                       </div>
               	</form>
