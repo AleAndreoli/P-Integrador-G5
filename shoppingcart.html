@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utfc-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro|Source+Sans+Pro&display=swap" rel="stylesheet">
+    <title>Mi carrito de compras</title>
+  </head>
+  <body>
+
+      <div class="pb-5">
+        <div class="container"> <!-- Contenedor del carrito -->
+          <div class="row">  <!-- Fila para los productos, la tabla ocupa toda la fila -->
+            <div class="col-md-12 p-5 bg-white rounded shadow-sm mb-5">
+
+              <div class="table-responsive"> <!-- Tabla de productos -->
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="border-0 bg-light">
+                        <div class="p-2 px-3 text-uppercase">Producto</div>
+                      </th>
+                      <th scope="col" class="border-0 bg-light">
+                        <div class="py-2 text-uppercase">Precio Unitario</div>
+                      </th>
+                      <th scope="col" class="border-0 bg-light">
+                        <div class="py-2 text-uppercase">Cantidad</div>
+                      </th>
+                      <th scope="col" class="border-0 bg-light">
+                        <div class="py-2 text-uppercase">Eliminar</div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row" class="border-0">
+                        <div class="p-2">
+                          <img src="https://cdn.pixabay.com/photo/2019/08/31/14/26/dahlia-4443509_960_720.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                          <div class="ml-3 d-inline-block align-middle">
+                            <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block align-middle">Dalia</a></h5><span class="text-muted font-weight-normal font-italic d-block">Categoría: Flor de Jardín</span>
+                          </div>
+                        </div>
+                      </th>
+                      <td class="border-0 align-middle"><strong>$279.00</strong></td>
+                      <td class="border-0 align-middle"><strong>1</strong></td>
+                      <td class="border-0 align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <div class="p-2">
+                          <img src="img/zink1.webp" alt="" width="70" class="img-fluid rounded shadow-sm">
+                          <div class="ml-3 d-inline-block align-middle">
+                            <h5 class="mb-0"><a href="#" class="text-dark d-inline-block">Arreglo Corona</a></h5><span class="text-muted font-weight-normal font-italic">Categoría: Arreglos decorativos</span>
+                          </div>
+                        </div>
+                      </th>
+                      <td class="align-middle"><strong>$99.00</strong></td>
+                      <td class="align-middle"><strong>2</strong></td>
+                      <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <th scope="row">
+                        <div class="p-2">
+                          <img src="img/semilla.jpg" alt="" width="70" class="img-fluid rounded shadow-sm">
+                          <div class="ml-3 d-inline-block align-middle">
+                            <h5 class="mb-0"> <a href="#" class="text-dark d-inline-block">Semillas Florales Seleccionadas</a></h5><span class="text-muted font-weight-normal font-italic">Categoría: Semillas</span>
+                          </div>
+                        </div>
+                        <td class="align-middle"><strong>$59.00</strong></td>
+                        <td class="align-middle"><strong>3</strong></td>
+                        <td class="align-middle"><a href="#" class="text-dark"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div> <!-- Final de la tabla de productos -->
+
+            </div>
+          </div> <!-- Final de la fila para los productos -->
+
+          <!-- Justo acá debería ingresarse una fila para las opciones de envío -->
+
+          <div class="row py-5 p-4 bg-white rounded shadow-sm"><!-- Fila para checkout -->
+            <div class="col-md-12">
+              <div class="bg-light rounded-pill px-4 py-3 text-uppercase text-center"><h4 class="font-weight-bold">Gracias Por Elegirnos</h4></div>
+              <p class="my-4 px-4">No olvide aprovechar su descuento, dejarnos instrucciones especiales ni revisar su resumen de cuenta... <br>Esto es MUY importante para nosotros ;)</p>
+            </div>
+            <div class="col-md-6">
+              <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Cupón De Descuento</div>
+              <div class="p-4">
+                <p class="font-italic mb-4">Si tiene un cupón de descuento, ingréselo a continuación</p>
+                <div class="input-group mb-4 border rounded-pill p-2">
+                  <input type="text" placeholder="Número De Cupón" class="form-control border-0">
+                  <div class="input-group-append border-0">
+                    <button id="button-addon3" type="button" class="btn btn-dark px-4 rounded-pill"><i class="fa fa-gift mr-2"></i>Aplicar!</button>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Instrucciones Adicionales</div>
+              <div class="p-4">
+                <p class="font-italic mb-4">Nos gusta entregar nuestros pedidos sanos y salvos y aunque conocemos cada rincón de la ciudad, algunas veces nos perdemos. <br> Si considera que vamos a necesitar pedir indicaciones a orilla del camino o que podemos llegar a interrumpir su siesta de belleza lo invitamos a dejar sus indicaciones o comentarios para la entrega </p>
+                <textarea name="" cols="30" rows="2" class="form-control"></textarea>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold">Resumen De Cuenta </div>
+              <div class="p-4">
+                <p class="font-italic mb-4">Los costos de envío y posibles costos adicionales son calculados en base a los valores ingresados previamente. Si tiene alguna duda aún está a tiempo de revisarlos y hacer modificaciones...<br> Su carrito está en buenas manos, podemos esperarlo </p>
+                <ul class="list-unstyled mb-4">
+                  <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Subtotal del Pedido </strong><strong>$654.00</strong></li>
+                  <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Envío y Embalado</strong><strong>$199.00</strong></li>
+                  <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
+                    <h5 class="font-weight-bold">$853.00</h5>
+                  </li>
+                </ul><a href="#" class="btn btn-dark rounded-pill py-2 btn-block">Estoy Listo Para Pagar</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+  </body>
+</html>

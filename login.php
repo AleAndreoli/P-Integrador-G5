@@ -28,6 +28,7 @@ function loginCall()
                     $_SESSION['telefono-f'] = $usuario['telefono-f'];
                     $_SESSION['celular'] = $usuario['celular'];
                     $_SESSION['direcciones'] = $usuario['direcciones'];
+                    $_SESSION['avatar'] = $usuario['avatar'];
                     header('location: Index.html');
                     exit;
                 } else {

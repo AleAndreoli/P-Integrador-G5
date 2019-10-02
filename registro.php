@@ -6,6 +6,9 @@ if (count($_POST)) {
 
     // Variable para persistir la información del usuario
 
+    $nombre = trim($_POST["nombre"]);
+    $apellido = trim($_POST["apellido"]);
+    $username = trim($_POST["username"]);
     $correoElectronico = trim($_POST['email']);
     if (isset($_POST['check-tyc'])) {
         $aceptatyc = trim($_POST['check-tyc']);
@@ -20,16 +23,26 @@ if (count($_POST)) {
     if (!count($erroresEnRegistro)) {
         $usuario=[
         'idUsuario'=> ($listaUsuarios == null) ? 1 : count($listaUsuarios) + 1,
-        'nombre'=> $_POST["name"],
+        'nombre'=> $_POST["nombre"],
+        'apellido'=> $_POST["apellido"],
         'email'=> $_POST["email"],
         'user'=> $_POST["username"],
         'password'=> password_hash($_POST["password1"], PASSWORD_DEFAULT),
         'direcciones' => [],
         'tyc-accepted'=> date("Y-m-d H:i:s"),
-        'documento'=>""
+        'documento'=>"",
+        'avatar'=>""
         ];
 
-        //echo var_dump($usuario)."<br>";
+        if ($_FILES["fotoperfil"]["size"] != 0) {
+            //envío foto a imagenes de perfil
+            $ext = pathinfo($_FILES["fotoperfil"]["name"], PATHINFO_EXTENSION);
+            move_uploaded_file($_FILES["fotoperfil"]["tmp_name"], "img/perfiles/fotoperfil".$usuario['idUsuario'].".".$ext);
+            //guardo ruta en el usuario
+            $usuario['avatar'] = "img/perfiles/fotoperfil".$usuario['idUsuario'].".".$ext;
+        }
+
+
 
         $usuarios= json_decode(file_get_contents("Usuarios.txt"), true);
         //echo var_dump($usuarios)."<br>";
@@ -42,19 +55,7 @@ if (count($_POST)) {
         exit;
     }
 }
-if ($_FILES) {
-  if ($_FILES["fotoperfil"]["error"] != 0) {
-    return "Hubo un error en la carga de la foto. <br>";
-  } else {
-    $ext = pathinfo($_FILES["fotoperfil"]["name"], PATHINFO_EXTENSION);
-    if ($ext != "jpg" && $ext != "jpeg" && $ext != "png") {
-      return "La imagen tiene que ser jpg, jpeg o png. <br>";
-    } else {
-      move_uploaded_file($_FILES["fotoperfil"]["tmp_name"], "archivos/fotoperfil.".$ext);
-      return "Se cargo correctamente tu imagen";
-    }
-  }
-}
+
 ?>
 <!doctype html>
 <html lang="es" dir="ltr">
@@ -97,50 +98,50 @@ if ($_FILES) {
   </nav>
 
   <div class="container">
-        <div class="row">
-            <form class="container rounded col-10 col-md-6 mt-5" method='post' enctype="multipart/form-data">
-                <div class="h4 p-2">¡Registrate para comprar tus productos!</div>
-                <div class="5">En solo 7 pasos ya estarás adentro de tu cuenta.</div>
-                <div class="form-control">
-                  <label for="InputFile h6">Carga tu foto de perfil</label>
-                  <input type="file" name="fotoperfil" value="">
-                </div>
-                <div class="form-control">
-                  <label for="InputName h6">Escribí tu nombre completo:</label>
-                  <input type="text" class="form-control" name="name" value="">
-                </div>
-                <div class="form-control">
-                  <label for="InputName h6">Elegí tu nombre de usuario:</label>
-                  <input type="text" class="form-control" name="username" value="">
-                </div>
-                <div class="form-group">
-                    <label for="InputEmail h6">Ingresa tu e-mail:</label>
-                    <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="email@dominio.com" name= "email" value='<?php if (count($_POST)):?><?=$correoElectronico?><?php endif?>'>
-                </div>
-                <div class="form-group">
-                    <label for="InputPassword1 h6">Elegí tu contraseña:</label>
-                    <input type="password" class="form-control" id="InputPassword1" placeholder="" name="password1">
-                    <small id="emailHelp" class="form-text text-white">Tiene que contener 8 dígitos alfanuméricos.</small>
-                </div>
-                <div class="form-group">
-                    <label for="InputPassword2 h6">Confirma tu contraseña:</label>
-                    <input type="password" class="form-control" id="InputPassword2" placeholder="" name="password2">
-                </div>
-                <div class="form-check">
-                    <input type="checkbox" class="form-check-input" id="Check1" name="check-tyc" value= "Yes" <?php if ($aceptatyc == "Yes"):?>checked<?php endif?>>
-                    <label class="form-check-label h6" for="Check1">Acepto los Términos y condiciones.</label>
-                </div>
-                <button type="submit" class="btn btn-primary btn-block mt-3">Confirmar</button>
-                <a type="" class="nav-link btn-link strong" href="login.html" name="button">Ya tengo cuenta</a>
-            </form>
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-12">
+          <div class="bg-light rounded-pill px-4 py-3 text-uppercase text-center"><h4 class="font-weight-bold">¡Registrate para comprar tus productos!</h4></div>
+          <p class="my-4 px-4">En solo 7 pasos estarás adentro de tu cuenta y explorando nuestras maravillosas ofertas... Si ya tenés una cuenta <a type="" href="login.php" name="button">seguí por acá</a></p>
         </div>
+        <form class="col-md-8 bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold" method='post' enctype="multipart/form-data">
+            <div class="form-group">
+              <label class="bg-light rounded-pill px-4 py-1 text-uppercase font-weight-bold" for="InputFile h6">Carga tu foto de perfil</label>
+              <input class= "form-control-file" type="file" name="fotoperfil" value="" >
+            </div>
+            <div class="form-group">
+              <label class="bg-light rounded-pill px-4 py-1 text-uppercase font-weight-bold" for="InputName h6">Decinos tu nombre:</label>
+              <input type="text" class="form-control" name="nombre" value='<?php if (count($_POST)):?><?=$nombre?><?php endif?>'>
+            </div>
+            <div class="form-group">
+              <label class="bg-light rounded-pill px-4 py-1 text-uppercase font-weight-bold" for="InputName h6">Y tu apellido?:</label>
+              <input type="text" class="form-control" name="apellido" value='<?php if (count($_POST)):?><?=$apellido?><?php endif?>'>
+            </div>
+            <div class="form-group">
+              <label class="bg-light rounded-pill px-4 py-1 text-uppercase font-weight-bold"for="InputName h6">Elegí tu nombre de usuario:</label>
+              <input type="text" class="form-control" name="username" value='<?php if (count($_POST)):?><?=$username?><?php endif?>'>
+            </div>
+            <div class="form-group">
+              <label class="bg-light rounded-pill px-4 py-1 text-uppercase font-weight-bold" for="InputEmail h6">Ingresa tu e-mail:</label>
+              <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="email@dominio.com" name= "email" value='<?php if (count($_POST)):?><?=$correoElectronico?><?php endif?>'>
+              <small class="form-text text-muted">Tranquilo, jamás compartiremos esta información con alguien más.</small>
+            </div>
+            <div class="form-group">
+                <label class="bg-light rounded-pill px-4 py-1 text-uppercase font-weight-bold" for="InputPassword1 h6">Elegí tu contraseña:</label>
+                <input type="password" class="form-control" id="InputPassword1" placeholder="" name="password1">
+                <small id="emailHelp" class="form-text text-muted">Tiene que contener 8 dígitos alfanuméricos.</small>
+            </div>
+            <div class="form-group">
+                <label class="bg-light rounded-pill px-4 py-1 text-uppercase font-weight-bold" for="InputPassword2 h6">Confirma tu contraseña:</label>
+                <input type="password" class="form-control" id="InputPassword2" placeholder="" name="password2">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="Check1" name="check-tyc" value= "Yes" <?php if ($aceptatyc == "Yes"):?>checked<?php endif?>>
+                <label class="form-check-label h6 my-1" for="Check1">Acepto los Términos y condiciones.</label>
+            </div>
+            <button type="submit" class="btn btn-dark rounded-pill py-2 btn-block my-3">Confirmar</button>
+        </form>
+    </div>
   </div>
-
-  <?php if (isset($_FILES)) : ?>
-    <ul>
-      <li><?=$imagen?></li>
-    </ul>
-  <?php endif; ?>
 
   <?php if (isset($erroresEnRegistro) && count($erroresEnRegistro) > 0) : ?>
     <ul>

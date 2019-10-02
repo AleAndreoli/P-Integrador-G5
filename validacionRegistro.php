@@ -45,5 +45,18 @@
           $errores['errorTyC'] = 'Para continuar debe aceptar terminos y condiciones del sitio';
       }
 
+      //Validando imagen de perfil (si se cargó)
+
+      if ($_FILES["fotoperfil"]["size"] != 0) {
+          if ($_FILES["fotoperfil"]["error"] != 0) {
+              $errores['errorimagen'] = "Hubo un error en la carga de la foto. <br>";
+          } else {
+              $ext = pathinfo($_FILES["fotoperfil"]["name"], PATHINFO_EXTENSION);
+              if ($ext != "jpg" && $ext != "jpeg" && $ext != "png") {
+                  $errores['errorimagen'] = "La imagen tiene que ser jpg, jpeg o png. <br>";
+              }
+          }
+      }
+
       return $errores;
   } // Final de funcion

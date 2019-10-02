@@ -44,15 +44,17 @@ if (count($_POST)) {
   		<div class="col-sm-3"><!--Barra lateral-->
 
 
-      <div class="text-center mt-2">
-        <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-circle img-thumbnail" alt="avatar">
-        <h6>Modificar Mi Imagen De Perfil</h6>
-        <div class="custom-file">
-          <label class="custom-file-label" for="carga-img">Seleccione Archivo</label>
-          <input type="file" class="custom-file-input" id="carga-img">
+        <div class="text-center mt-2">
+          <img src="<?=$_SESSION['avatar']?>" class="avatar img-circle img-thumbnail" alt="avatar">
+          <!--EN DESARROLLO
+          <h6>Modificar Mi Imagen De Perfil</h6>
+          <div class="custom-file">
+            <label class="custom-file-label" for="carga-img">Seleccione Archivo</label>
+            <input type="file" class="custom-file-input" id="carga-img">
+          </div>
+          -->
         </div>
-      </div>
-    </hr> <br>
+      </hr> <br>
 
           <ul class="list-group">
             <li class="list-group-item text-muted">Resumen Actividades</li>
@@ -81,7 +83,7 @@ if (count($_POST)) {
                           <div class="col-xs-6">
                               <label for="nombre">
                                 <h4>
-                                  <?php if ($_SESSION['nombre']):?><?=$_SESSION['nombre']?> <?php else:?>Por favor, díganos su nombre <?php endif?>
+                                  <?php if ($_SESSION['nombre']):?>Nombre: <?=$_SESSION['nombre']?> <?php else:?>Por favor, díganos su nombre <?php endif?>
                                 </h4>
                               </label>
                               <input type="text" class="form-control" name="nombre" id="nombre" value='<?php if (count($_POST)):?><?=$nombre?><?php endif?>'placeholder="Nombre/s">
@@ -92,7 +94,7 @@ if (count($_POST)) {
                           <div class="col-xs-6">
                             <label for="apellido">
                               <h4>
-                              <?php if ($_SESSION['apellido']):?><?=$_SESSION['apellido']?> <?php else:?>Por favor, díganos su apellido <?php endif?>
+                              <?php if ($_SESSION['apellido']):?>Apellido: <?=$_SESSION['apellido']?> <?php else:?>Por favor, díganos su apellido <?php endif?>
                               </h4>
                             </label>
                               <input type="text" class="form-control" name="apellido" id="apellido" value='<?php if (count($_POST)):?><?=$apellido?><?php endif?>' placeholder="Apellido">
