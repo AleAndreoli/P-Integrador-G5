@@ -1,4 +1,58 @@
 <?php
+function loginCall()
+{
+
+    // Declaro array de errores para almacenarlos si es que los encuentro
+    $errores = [];
+
+    $usuarios = json_decode(file_get_contents("Usuarios.txt"), true);
+
+    // Variables para persistir la información del usuario y validar
+    $correoElectronico = trim($_POST['email']);
+    $contrasenia = trim($_POST['password']);
+
+
+
+    // Localizar contraseña, si el email existe
+
+    if (empty($correoElectronico)) {
+        $errores['errorCorreoElectronico'] = 'Debe ingresar su correo electrónico';
+    } elseif (!filter_var($correoElectronico, FILTER_VALIDATE_EMAIL)) {
+        $errores['errorCorreoElectronico'] = 'Ingresá una dirección de correo valida';
+    } elseif (!empty($usuarios)) {
+        foreach ($usuarios as $usuario) {
+            if ($correoElectronico == $usuario['email']) {
+                $password= $usuario['password'];
+                if (password_verify($contrasenia, $password)) {
+                    session_start();
+                    session_regenerate_id(true);
+                    $_SESSION['estado'] = "Activa";
+                    $_SESSION['idUsuario'] = $usuario['idUsuario'];
+                    $_SESSION['nombre'] = $usuario['nombre'];
+                    $_SESSION['apellido'] = $usuario['apellido'];
+                    $_SESSION['telefono-f'] = $usuario['telefono-f'];
+                    $_SESSION['celular'] = $usuario['celular'];
+                    $_SESSION['direcciones'] = $usuario['direcciones'];
+                    $_SESSION['avatar'] = $usuario['avatar'];
+                    if ($_POST['check-usr']=='Yes') {
+                        setcookie("UsuarioLogueado", $usuario['email'], time()+(3600*24*7)); // Recuerda el último usuario logueado, expira en una semana.
+                    }
+                    header('location: Index.php');
+                    exit;
+                } else {
+                    $errores['errorCorreoElectronico'] = 'Usuario y Contraseña ingresados no coinciden';
+                }
+            } else {
+                $errores['errorCorreoElectronico'] = 'Debe registrarse antes de ingresar al sitio';
+            }
+        }
+    }
+    $errores['errorCorreoElectronico'] = 'Debe registrarse antes de ingresar al sitio';
+    return $errores;
+} // Final de Funcion
+
+
+
 function validarUsuario()
 {
     //La funcion valida los datos ingresados en el perfil del usuario
@@ -23,6 +77,19 @@ function validarUsuario()
             $errores['errorContrasenia'] = 'Es necesesario verificar la contraseña';
         } elseif ($contrasenia1 != $contrasenia2) {
             $errores['errorContrasenia'] = 'Las contraseñas ingresadas no coinciden';
+        }
+    }
+
+    //Validando imagen de perfil (si se cargó)
+
+    if ($_FILES["fotoperfil"]["size"] != 0) {
+        if ($_FILES["fotoperfil"]["error"] != 0) {
+            $errores['errorimagen'] = "Hubo un error en la carga de la foto. <br>";
+        } else {
+            $ext = pathinfo($_FILES["fotoperfil"]["name"], PATHINFO_EXTENSION);
+            if ($ext != "jpg" && $ext != "jpeg" && $ext != "png") {
+                $errores['errorimagen'] = "La imagen tiene que ser jpg, jpeg o png. <br>";
+            }
         }
     }
 
@@ -60,12 +127,19 @@ function actualizarPerfil($idUsuario)
     'password'=> (!empty($_POST['password1'])) ? password_hash($_POST["password1"], PASSWORD_DEFAULT) : $usuarios[getUsuarioLogueado($idUsuario)]['password'],
     'direcciones' => $usuarios[getUsuarioLogueado($idUsuario)]['direcciones'],
     'tyc-accepted'=>  $usuarios[getUsuarioLogueado($idUsuario)]['tyc-accepted'],
-    'avatar'=> $usuarios[getUsuarioLogueado($idUsuario)]['avatar']
+    'avatar'=> ($_FILES["fotoperfil"]["size"] != 0)?"img/perfiles/fotoperfil".$usuarios[getUsuarioLogueado($idUsuario)]['idUsuario'].".".pathinfo($_FILES["fotoperfil"]["name"], PATHINFO_EXTENSION):$usuarios[getUsuarioLogueado($idUsuario)]['avatar']
     ];
         $nombre = trim($_POST['nombre']);
         $apellido = trim($_POST['apellido']);
         $telefono = trim($_POST['telefono-f']);
         $celular = trim($_POST['celular']);
+
+        if ($_FILES["fotoperfil"]["size"] != 0) {
+            //envío foto a imagenes de perfil
+            $ext = pathinfo($_FILES["fotoperfil"]["name"], PATHINFO_EXTENSION);
+            move_uploaded_file($_FILES["fotoperfil"]["tmp_name"], "img/perfiles/fotoperfil".$usuario['idUsuario'].".".$ext);
+        }
+
         $indice = getUsuarioLogueado($idUsuario);
         $usuarios[$indice]=$usuario;
 
@@ -76,5 +150,12 @@ function actualizarPerfil($idUsuario)
         $_SESSION['apellido'] = $usuario['apellido'];
         $_SESSION['telefono-f'] = $usuario['telefono-f'];
         $_SESSION['celular'] = $usuario['celular'];
+        $_SESSION['avatar'] = $usuario['avatar'];
     }
+}
+
+function FinalizarSesion()
+{
+    session_destroy();
+    header('location: Index.php');
 }

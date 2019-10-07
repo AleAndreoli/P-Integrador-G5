@@ -31,7 +31,7 @@ if (count($_POST)) {
         'direcciones' => [],
         'tyc-accepted'=> date("Y-m-d H:i:s"),
         'documento'=>"",
-        'avatar'=>""
+        'avatar'=>"https://cdn.pixabay.com/photo/2013/07/13/10/44/man-157699_960_720.png"
         ];
 
         if ($_FILES["fotoperfil"]["size"] != 0) {
@@ -51,7 +51,7 @@ if (count($_POST)) {
 
         file_put_contents("Usuarios.txt", json_encode($usuarios));
 
-        header('location: Index.html'); //Redirecciona al Index, deberíamos tener una pág de reg exitoso
+        header('location: Index.php'); //Redirecciona al Index, deberíamos tener una pág de reg exitoso
         exit;
     }
 }
@@ -71,31 +71,8 @@ if (count($_POST)) {
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-top">
-      <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
-           <img src="https://www.plantadeldinero.com/wp-content/uploads/2018/11/6.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-           Green Valley
-             </a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
 
-          <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="user-account.html">Cuenta <span class="sr-only">(current)</span></a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="login.html">Iniciar Sesion</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="registro.html">Registrarse</a>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </nav>
+  <?php require_once('headder.php') ?>
 
   <div class="container">
     <div class="row d-flex justify-content-center">

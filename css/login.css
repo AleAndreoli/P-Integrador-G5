@@ -1,12 +1,6 @@
-a.nav-link{
-	color:#fff;
-}
+
 
 a.nav-link:hover{
-  	color:#fff;
+  	color: black;
   	text-decoration: underline;
-}
-
-form {
-  background-color: #1dc255;
 }

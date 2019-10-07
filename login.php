@@ -1,48 +1,5 @@
 <?php
-function loginCall()
-{
-
-    // Declaro array de errores para almacenarlos si es que los encuentro
-    $errores = [];
-
-    $usuarios = json_decode(file_get_contents("Usuarios.txt"), true);
-
-    // Variables para persistir la información del usuario y validar
-    $correoElectronico = trim($_POST['email']);
-    $contrasenia = trim($_POST['password']);
-
-    // Localizar contraseña, si el email existe
-    if (empty($correoElectronico)) {
-        $errores['errorCorreoElectronico'] = 'Debe ingresar su correo electrónico';
-    } elseif (!filter_var($correoElectronico, FILTER_VALIDATE_EMAIL)) {
-        $errores['errorCorreoElectronico'] = 'Ingresá una dirección de correo valida';
-    } elseif (!empty($usuarios)) {
-        foreach ($usuarios as $usuario) {
-            if ($correoElectronico == $usuario['email']) {
-                $password= $usuario['password'];
-                if (password_verify($contrasenia, $password)) {
-                    session_start();
-                    $_SESSION['idUsuario'] = $usuario['idUsuario'];
-                    $_SESSION['nombre'] = $usuario['nombre'];
-                    $_SESSION['apellido'] = $usuario['apellido'];
-                    $_SESSION['telefono-f'] = $usuario['telefono-f'];
-                    $_SESSION['celular'] = $usuario['celular'];
-                    $_SESSION['direcciones'] = $usuario['direcciones'];
-                    $_SESSION['avatar'] = $usuario['avatar'];
-                    header('location: Index.html');
-                    exit;
-                } else {
-                    $errores['errorCorreoElectronico'] = 'Usuario y Contraseña ingresados no coinciden';
-                }
-            } else {
-                $errores['errorCorreoElectronico'] = 'Debe registrarse antes de ingresar al sitio';
-            }
-        }
-    }
-
-    return $errores;
-} // Final de Funcion
-
+require_once('funciones.php');
 
 if (count($_POST)) {
 
@@ -72,50 +29,51 @@ if (count($_POST)) {
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary navbar-top">
-      <div class="container-fluid">
-          <a class="navbar-brand" href="index.html">
-           <img src="https://www.plantadeldinero.com/wp-content/uploads/2018/11/6.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-           Green Valley
-             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="user-account.html">Cuenta <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="login.html">Iniciar Sesion</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="registro.html">Registrarse</a>
-                </li>
-                </ul>
-            </div>
-      </div>
-  </nav>
+
+  <?php require_once('headder.php') ?>
 
 
   <div class="container">
-        <div class="row">
-            <form class="container rounded col-10 col-md-6 mt-5" method="post">
-                  <div class="h4 p-2">¡Bienvenido!</div>
-                  <div class="h5">Completa los datos para ingresar a tu cuenta.</div>
-                  <div class="form-group">
+    <div class="row no-gutter"> <!-- Fila sin separacion entre divs -->
+
+      <div class="col-md-6 d-none d-md-flex bg-image"> <!-- Div mitad para la imagen -->
+        <img src="img/carretilla.jpg" alt="Carretilla">
+      </div>
+
+      <div class="col-md-6 bg-light"> <!-- Div Mitad para el formulario -->
+          <div class="login d-flex align-items-center py-5">
+            <div class="col-md-12 col-xl-10 mx-auto">
+                <h3 class="display-4">¡Bienvenido!</h3>
+                <p class="text-muted mb-4">Completa los datos para ingresar a tu cuenta.</p>
+                <form method="post">
+                    <div class="form-group mb-3">
                       <label for="exampleInputEmail1">Correo electrónico:</label>
                       <input type="email" class="form-control h6" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@dominio.com" name="email" value='<?php if (count($_POST)):?><?=$correoElectronico?><?php endif?>'>
-                  </div>
-                  <div class="form-group">
+                    </div>
+                    <div class="form-group mb-3">
                       <label for="exampleInputPassword1">Contraseña:</label>
                       <input type="password" class="form-control h6" id="exampleInputPassword1" placeholder="" name="password">
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
-                  <a type="" class="nav-link btn-link strong" href="recupero.html" name="button">¿Olvidaste tu cuenta?</a>
-            </form>
-        </div>
-  </div>
+                    </div>
+                    <div class="custom-control custom-checkbox mb-3">
+                      <input type="checkbox" class="form-check-input" id="Check1" name="check-usr" value= "Yes">
+                      <label class="form-check-label h6 my-1" for="Check1">Recordar mi usuario</label>
+                    </div>
+                    <button type="submit" class="btn btn-dark rounded-pill btn-block">Ingresar</button>
+                    <a type="" class="nav-link strong mt-3" href="recupero.html" name="button">¿Olvidaste tu cuenta?</a>
+                </form>
+            </div> <!-- Fin Formulario -->
+
+          </div> <!-- Fin contenedor centrado -->
+          <div class="col-md-12 col-xl-10 mx-auto"> <!-- Div Envío a registro Formulario -->
+            <h4 class="display-5">¿No Tenés Cuenta?</h4>
+            <p class="text-muted mb-4">Es necesario tener una cuenta para adquirir nuestros productos o servicios... Es rápido, es fácil Y ES GRATIS. <br>
+            Te invitamos a completar el formulario de registro... </p>
+            <a type="" class="btn btn-dark rounded-pill btn-block" href="registro.php" name="button">Quiero Registrarme</a>
+          </div>
+      </div>
+
+    </div>
+</div>
 
   <?php if (isset($erroresEnLogin) && count($erroresEnLogin) > 0) : ?>
     <ul>

@@ -1,0 +1,1 @@
+[{"idUsuario":1,"nombre":"Alejandro Daniel","apellido":"Andreoli","telefono-f":null,"celular":null,"email":"aleandreoli@gmail.com","user":"Alejandrito","password":"$2y$10$1UEh\/e2T1GWYFObyfhsc2eyvwTtbQT24OuqDT64J7we2\/4O6tUUDW","direcciones":[],"tyc-accepted":"2019-10-07 04:46:21","avatar":"img\/perfiles\/fotoperfil1.jpg"}]
