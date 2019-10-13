@@ -1,6 +1,8 @@
 <?php
 require_once('funciones.php');
 
+$correoElectronico = "";
+
 if (count($_POST)) {
 
     // Variable para persistir la información del usuario
@@ -10,6 +12,10 @@ if (count($_POST)) {
 
     // Esta función guarda el array que retorna la función validarRegistro()
     $erroresEnLogin = loginCall();
+}
+
+if (isset($_COOKIE['UsuarioLogueado'])) {
+    $correoElectronico = $_COOKIE['UsuarioLogueado'];
 }
 
 ?>
@@ -48,7 +54,7 @@ if (count($_POST)) {
                 <form method="post">
                     <div class="form-group mb-3">
                       <label for="exampleInputEmail1">Correo electrónico:</label>
-                      <input type="email" class="form-control h6" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@dominio.com" name="email" value='<?php if (count($_POST)):?><?=$correoElectronico?><?php endif?>'>
+                      <input type="email" class="form-control h6" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="email@dominio.com" name="email" value='<?=$correoElectronico?>'>
                     </div>
                     <div class="form-group mb-3">
                       <label for="exampleInputPassword1">Contraseña:</label>
