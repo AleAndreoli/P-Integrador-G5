@@ -7,13 +7,19 @@ function loginCall()
 
     $usuarios = json_decode(file_get_contents("Usuarios.txt"), true);
 
+    // $usuarios = Usuario::all();
+
     // Variables para persistir la información del usuario y validar
+    // $correoElectronico = trim($request->input('email'))
     $correoElectronico = trim($_POST['email']);
     $contrasenia = trim($_POST['password']);
 
 
 
     // Localizar contraseña, si el email existe
+
+    // @if($errores)
+    // @endif
 
     if (empty($correoElectronico)) {
         $errores['errorCorreoElectronico'] = 'Debe ingresar su correo electrónico';
@@ -98,7 +104,8 @@ function validarUsuario()
 
 function getUsuarioLogueado($idUsuario)
 {
-    //La funcion recupera la clave del usuario logueado a partir del parámetro de $_SESSION[idUsuario]
+    // return Auth::user();
+    // La funcion recupera la clave del usuario logueado a partir del parámetro de $_SESSION[idUsuario]
     $usuarios = json_decode(file_get_contents("Usuarios.txt"), true);
 
     foreach ($usuarios as $clave => $usuario) {
@@ -133,6 +140,8 @@ function actualizarPerfil($idUsuario)
         $apellido = trim($_POST['apellido']);
         $telefono = trim($_POST['telefono-f']);
         $celular = trim($_POST['celular']);
+
+        // if ($request->hasFile('fotoperfil')) {
 
         if ($_FILES["fotoperfil"]["size"] != 0) {
             //envío foto a imagenes de perfil
